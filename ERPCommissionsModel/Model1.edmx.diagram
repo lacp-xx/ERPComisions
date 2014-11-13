@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e3641a3e9fec4afcac9b5565d9a16015" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.Deaeler" Width="1.5" PointX="6.625" PointY="3.5" />
+        <EntityTypeShape EntityType="Model1.Operator" Width="1.5" PointX="9.25" PointY="3.5" />
+        <EntityTypeShape EntityType="Model1.Commission" Width="1.5" PointX="3.375" PointY="0.625" />
+        <EntityTypeShape EntityType="Model1.Plan" Width="1.5" PointX="12.5" PointY="4.875" />
+        <EntityTypeShape EntityType="Model1.CommissionType" Width="2.125" PointX="18.125" PointY="4.375" />
+        <EntityTypeShape EntityType="Model1.Spiff" Width="1.5" PointX="4.125" PointY="3.375" />
+        <EntityTypeShape EntityType="Model1.Residual" Width="1.5" PointX="2.5" PointY="3.375" IsExpanded="true" />
+        <InheritanceConnector EntityType="Model1.Spiff" />
+        <InheritanceConnector EntityType="Model1.Residual" />
+        <EntityTypeShape EntityType="Model1.CommissionPayType" Width="1.5" PointX="7.625" PointY="0.875" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
