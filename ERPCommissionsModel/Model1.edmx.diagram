@@ -5,16 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e3641a3e9fec4afcac9b5565d9a16015" Name="Diagram1" >
-        <EntityTypeShape EntityType="Model1.Deaeler" Width="1.5" PointX="6.625" PointY="3.5" />
+        <EntityTypeShape EntityType="Model1.Deaeler" Width="1.5" PointX="5.5" PointY="5.75" />
         <EntityTypeShape EntityType="Model1.Operator" Width="1.5" PointX="9.25" PointY="3.5" />
         <EntityTypeShape EntityType="Model1.Commission" Width="1.5" PointX="3.375" PointY="0.625" />
         <EntityTypeShape EntityType="Model1.Plan" Width="1.5" PointX="12.5" PointY="4.875" />
-        <EntityTypeShape EntityType="Model1.CommissionType" Width="2.125" PointX="18.125" PointY="4.375" />
-        <EntityTypeShape EntityType="Model1.Spiff" Width="1.5" PointX="4.125" PointY="3.375" />
-        <EntityTypeShape EntityType="Model1.Residual" Width="1.5" PointX="2.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.CommissionType" PointX="0.5" PointY="2.875" Width="2.125" />
+        <EntityTypeShape EntityType="Model1.Spiff" Width="1.5" PointX="4" PointY="4.625" />
+        <EntityTypeShape EntityType="Model1.Residual" Width="1.5" PointX="2.5" PointY="4.625" IsExpanded="true" />
         <InheritanceConnector EntityType="Model1.Spiff" />
         <InheritanceConnector EntityType="Model1.Residual" />
-        <EntityTypeShape EntityType="Model1.CommissionPayType" Width="1.5" PointX="7.625" PointY="0.875" />
+        <EntityTypeShape EntityType="Model1.CommissionPayType" Width="1.5" PointX="7.375" PointY="1" />
+        <AssociationConnector Association="Model1.CommissionCommissionPayType" />
+        <AssociationConnector Association="Model1.CommissionDeaeler" />
+        <AssociationConnector Association="Model1.CommissionPlan" />
+        <AssociationConnector Association="Model1.OperatorPlan" />
+        <EntityTypeShape EntityType="Model1.CommissionRule" Width="2" PointX="7.875" PointY="7.375" />
+        <EntityTypeShape EntityType="Model1.ActivationNumberRule" Width="2.25" PointX="11" PointY="8.375" />
+        <InheritanceConnector EntityType="Model1.ActivationNumberRule" />
+        <AssociationConnector Association="Model1.CommissionCommissionType" />
+        <AssociationConnector Association="Model1.CommissionCommissionRule" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

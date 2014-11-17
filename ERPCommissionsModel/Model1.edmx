@@ -4,11 +4,272 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="Model1TargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Deaelers1" EntityType="Model1.Store.Deaelers1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Operators" EntityType="Model1.Store.Operators" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Commissions" EntityType="Model1.Store.Commissions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Plans" EntityType="Model1.Store.Plans" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommissionTypes" EntityType="Model1.Store.CommissionTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommissionPayTypes" EntityType="Model1.Store.CommissionPayTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommissionRules" EntityType="Model1.Store.CommissionRules" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Commissions_Spiff" EntityType="Model1.Store.Commissions_Spiff" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Commissions_Residual" EntityType="Model1.Store.Commissions_Residual" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommissionRules_ActivationNumberRule" EntityType="Model1.Store.CommissionRules_ActivationNumberRule" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommissionCommissionRule" EntityType="Model1.Store.CommissionCommissionRule" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CommissionCommissionPayType" Association="Model1.Store.CommissionCommissionPayType">
+      <End Role="Commission" EntitySet="Commissions" />
+      <End Role="CommissionPayType" EntitySet="CommissionPayTypes" />
+    </AssociationSet>
+    <AssociationSet Name="CommissionDeaeler" Association="Model1.Store.CommissionDeaeler">
+      <End Role="Commission" EntitySet="Commissions" />
+      <End Role="Deaeler" EntitySet="Deaelers1" />
+    </AssociationSet>
+    <AssociationSet Name="CommissionPlan" Association="Model1.Store.CommissionPlan">
+      <End Role="Commission" EntitySet="Commissions" />
+      <End Role="Plan" EntitySet="Plans" />
+    </AssociationSet>
+    <AssociationSet Name="OperatorPlan" Association="Model1.Store.OperatorPlan">
+      <End Role="Operator" EntitySet="Operators" />
+      <End Role="Plan" EntitySet="Plans" />
+    </AssociationSet>
+    <AssociationSet Name="CommissionCommissionType" Association="Model1.Store.CommissionCommissionType">
+      <End Role="Commission" EntitySet="Commissions" />
+      <End Role="CommissionType" EntitySet="CommissionTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommissionCommissionRule_Commission" Association="Model1.Store.FK_CommissionCommissionRule_Commission">
+      <End Role="Commission" EntitySet="Commissions" />
+      <End Role="CommissionCommissionRule" EntitySet="CommissionCommissionRule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommissionCommissionRule_CommissionRule" Association="Model1.Store.FK_CommissionCommissionRule_CommissionRule">
+      <End Role="CommissionRule" EntitySet="CommissionRules" />
+      <End Role="CommissionCommissionRule" EntitySet="CommissionCommissionRule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Spiff_inherits_Commission" Association="Model1.Store.FK_Spiff_inherits_Commission">
+      <End Role="Commission" EntitySet="Commissions" />
+      <End Role="Spiff" EntitySet="Commissions_Spiff" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Residual_inherits_Commission" Association="Model1.Store.FK_Residual_inherits_Commission">
+      <End Role="Commission" EntitySet="Commissions" />
+      <End Role="Residual" EntitySet="Commissions_Residual" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ActivationNumberRule_inherits_CommissionRule" Association="Model1.Store.FK_ActivationNumberRule_inherits_CommissionRule">
+      <End Role="CommissionRule" EntitySet="CommissionRules" />
+      <End Role="ActivationNumberRule" EntitySet="CommissionRules_ActivationNumberRule" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Deaelers1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Operators">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commissions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="PlanId" Type="int" Nullable="false" />
+    <Property Name="CommissionTypeId" Type="int" Nullable="false" />
+    <Property Name="CommissionPayType_Id" Type="int" Nullable="false" />
+    <Property Name="Deaeler_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Plans">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="decimal" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="OperatorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommissionTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommissionPayTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommissionRules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commissions_Spiff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commissions_Residual">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommissionRules_ActivationNumberRule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="NumberOfActivations" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommissionCommissionRule">
+    <Key>
+      <PropertyRef Name="Commissions_Id" />
+      <PropertyRef Name="CommissionRules_Id" />
+    </Key>
+    <Property Name="Commissions_Id" Type="int" Nullable="false" />
+    <Property Name="CommissionRules_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CommissionCommissionPayType">
+    <End Role="Commission" Type="Model1.Store.Commissions" Multiplicity="*" />
+    <End Role="CommissionPayType" Type="Model1.Store.CommissionPayTypes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CommissionPayType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commission">
+        <PropertyRef Name="CommissionPayType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommissionDeaeler">
+    <End Role="Commission" Type="Model1.Store.Commissions" Multiplicity="*" />
+    <End Role="Deaeler" Type="Model1.Store.Deaelers1" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Deaeler">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commission">
+        <PropertyRef Name="Deaeler_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommissionPlan">
+    <End Role="Commission" Type="Model1.Store.Commissions" Multiplicity="*" />
+    <End Role="Plan" Type="Model1.Store.Plans" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Plan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commission">
+        <PropertyRef Name="PlanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OperatorPlan">
+    <End Role="Operator" Type="Model1.Store.Operators" Multiplicity="1" />
+    <End Role="Plan" Type="Model1.Store.Plans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operator">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Plan">
+        <PropertyRef Name="OperatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommissionCommissionType">
+    <End Role="Commission" Type="Model1.Store.Commissions" Multiplicity="*" />
+    <End Role="CommissionType" Type="Model1.Store.CommissionTypes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CommissionType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commission">
+        <PropertyRef Name="CommissionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommissionCommissionRule_Commission">
+    <End Role="Commission" Type="Model1.Store.Commissions" Multiplicity="1" />
+    <End Role="CommissionCommissionRule" Type="Model1.Store.CommissionCommissionRule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commission">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommissionCommissionRule">
+        <PropertyRef Name="Commissions_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommissionCommissionRule_CommissionRule">
+    <End Role="CommissionCommissionRule" Type="Model1.Store.CommissionCommissionRule" Multiplicity="*" />
+    <End Role="CommissionRule" Type="Model1.Store.CommissionRules" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CommissionRule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommissionCommissionRule">
+        <PropertyRef Name="CommissionRules_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Spiff_inherits_Commission">
+    <End Role="Commission" Type="Model1.Store.Commissions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Spiff" Type="Model1.Store.Commissions_Spiff" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Commission">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Spiff">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Residual_inherits_Commission">
+    <End Role="Commission" Type="Model1.Store.Commissions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Residual" Type="Model1.Store.Commissions_Residual" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Commission">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Residual">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ActivationNumberRule_inherits_CommissionRule">
+    <End Role="CommissionRule" Type="Model1.Store.CommissionRules" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ActivationNumberRule" Type="Model1.Store.CommissionRules_ActivationNumberRule" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CommissionRule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ActivationNumberRule">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -19,13 +280,39 @@
           <EntitySet Name="Plans" EntityType="Model1.Plan" />
           <EntitySet Name="CommissionTypes" EntityType="Model1.CommissionType" />
           <EntitySet Name="CommissionPayTypes" EntityType="Model1.CommissionPayType" />
-        </EntityContainer>
+          <AssociationSet Name="CommissionCommissionPayType" Association="Model1.CommissionCommissionPayType">
+            <End Role="Commission" EntitySet="Commissions" />
+            <End Role="CommissionPayType" EntitySet="CommissionPayTypes" />
+          </AssociationSet>
+          <AssociationSet Name="CommissionDeaeler" Association="Model1.CommissionDeaeler">
+            <End Role="Commission" EntitySet="Commissions" />
+            <End Role="Deaeler" EntitySet="Deaelers1" />
+          </AssociationSet>
+          <AssociationSet Name="CommissionPlan" Association="Model1.CommissionPlan">
+            <End Role="Commission" EntitySet="Commissions" />
+            <End Role="Plan" EntitySet="Plans" />
+          </AssociationSet>
+          <AssociationSet Name="OperatorPlan" Association="Model1.OperatorPlan">
+            <End Role="Operator" EntitySet="Operators" />
+            <End Role="Plan" EntitySet="Plans" />
+          </AssociationSet>
+          <EntitySet Name="CommissionRules" EntityType="Model1.CommissionRule" />
+          <AssociationSet Name="CommissionCommissionType" Association="Model1.CommissionCommissionType">
+            <End Role="Commission" EntitySet="Commissions" />
+            <End Role="CommissionType" EntitySet="CommissionTypes" />
+          </AssociationSet>
+          <AssociationSet Name="CommissionCommissionRule" Association="Model1.CommissionCommissionRule">
+            <End Role="Commission" EntitySet="Commissions" />
+            <End Role="CommissionRule" EntitySet="CommissionRules" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Deaeler">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Commissions" Relationship="Model1.CommissionDeaeler" FromRole="Deaeler" ToRole="Commission" />
         </EntityType>
         <EntityType Name="Operator">
           <Key>
@@ -33,6 +320,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Plans" Relationship="Model1.OperatorPlan" FromRole="Operator" ToRole="Plan" />
         </EntityType>
         <EntityType Name="Commission">
           <Key>
@@ -42,6 +330,13 @@
           <Property Name="Value" Type="String" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="CommissionPayType" Relationship="Model1.CommissionCommissionPayType" FromRole="Commission" ToRole="CommissionPayType" />
+          <NavigationProperty Name="Deaeler" Relationship="Model1.CommissionDeaeler" FromRole="Commission" ToRole="Deaeler" />
+          <NavigationProperty Name="Plan" Relationship="Model1.CommissionPlan" FromRole="Commission" ToRole="Plan" />
+          <Property Name="PlanId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CommissionType" Relationship="Model1.CommissionCommissionType" FromRole="Commission" ToRole="CommissionType" />
+          <Property Name="CommissionTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CommissionRules" Relationship="Model1.CommissionCommissionRule" FromRole="Commission" ToRole="CommissionRule" />
         </EntityType>
         <EntityType Name="Plan">
           <Key>
@@ -49,13 +344,19 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Commissions" Relationship="Model1.CommissionPlan" FromRole="Plan" ToRole="Commission" />
+          <Property Name="Value" Type="Decimal" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="Operator" Relationship="Model1.OperatorPlan" FromRole="Plan" ToRole="Operator" />
+          <Property Name="OperatorId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="CommissionType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Name" Nullable="false" Type="String" />
+          <NavigationProperty Name="Commissions" Relationship="Model1.CommissionCommissionType" FromRole="CommissionType" ToRole="Commission" />
         </EntityType>
         <EntityType Name="Spiff" BaseType="Model1.Commission">
           </EntityType>
@@ -67,18 +368,178 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Commissions" Relationship="Model1.CommissionCommissionPayType" FromRole="CommissionPayType" ToRole="Commission" />
         </EntityType>
+        <Association Name="CommissionCommissionPayType">
+          <End Type="Model1.Commission" Role="Commission" Multiplicity="*" />
+          <End Type="Model1.CommissionPayType" Role="CommissionPayType" Multiplicity="1" />
+        </Association>
+        <Association Name="CommissionDeaeler">
+          <End Type="Model1.Commission" Role="Commission" Multiplicity="*" />
+          <End Type="Model1.Deaeler" Role="Deaeler" Multiplicity="1" />
+        </Association>
+        <Association Name="CommissionPlan">
+          <End Type="Model1.Commission" Role="Commission" Multiplicity="*" />
+          <End Type="Model1.Plan" Role="Plan" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Plan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="PlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OperatorPlan">
+          <End Type="Model1.Operator" Role="Operator" Multiplicity="1" />
+          <End Type="Model1.Plan" Role="Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operator">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CommissionRule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Commissions" Relationship="Model1.CommissionCommissionRule" FromRole="CommissionRule" ToRole="Commission" />
+        </EntityType>
+        <EntityType Name="ActivationNumberRule" BaseType="Model1.CommissionRule" >
+          <Property Name="NumberOfActivations" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="CommissionCommissionType">
+          <End Type="Model1.Commission" Role="Commission" Multiplicity="*" />
+          <End Type="Model1.CommissionType" Role="CommissionType" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="CommissionType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="CommissionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CommissionCommissionRule">
+          <End Type="Model1.Commission" Role="Commission" Multiplicity="*" />
+          <End Type="Model1.CommissionRule" Role="CommissionRule" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="Model1" />
-        <Alias Key="Target" Value="Model1.Store" />
-        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Deaelers1">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Deaeler)">
+        <MappingFragment StoreEntitySet="Deaelers1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operators">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Operator)">
+        <MappingFragment StoreEntitySet="Operators">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commissions">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Commission)">
+        <MappingFragment StoreEntitySet="Commissions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+          <ScalarProperty Name="CommissionTypeId" ColumnName="CommissionTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Spiff)">
+        <MappingFragment StoreEntitySet="Commissions_Spiff">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Residual)">
+        <MappingFragment StoreEntitySet="Commissions_Residual">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Plans">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Plan)">
+        <MappingFragment StoreEntitySet="Plans">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommissionTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CommissionType)">
+        <MappingFragment StoreEntitySet="CommissionTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommissionPayTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CommissionPayType)">
+        <MappingFragment StoreEntitySet="CommissionPayTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommissionRules">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CommissionRule)">
+        <MappingFragment StoreEntitySet="CommissionRules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ActivationNumberRule)">
+        <MappingFragment StoreEntitySet="CommissionRules_ActivationNumberRule">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumberOfActivations" ColumnName="NumberOfActivations" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CommissionCommissionPayType" TypeName="Model1.CommissionCommissionPayType" StoreEntitySet="Commissions">
+      <EndProperty Name="CommissionPayType">
+        <ScalarProperty Name="Id" ColumnName="CommissionPayType_Id" />
+      </EndProperty>
+      <EndProperty Name="Commission">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CommissionDeaeler" TypeName="Model1.CommissionDeaeler" StoreEntitySet="Commissions">
+      <EndProperty Name="Deaeler">
+        <ScalarProperty Name="Id" ColumnName="Deaeler_Id" />
+      </EndProperty>
+      <EndProperty Name="Commission">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CommissionCommissionRule" TypeName="Model1.CommissionCommissionRule" StoreEntitySet="CommissionCommissionRule">
+      <EndProperty Name="Commission">
+        <ScalarProperty Name="Id" ColumnName="Commissions_Id" />
+      </EndProperty>
+      <EndProperty Name="CommissionRule">
+        <ScalarProperty Name="Id" ColumnName="CommissionRules_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -92,6 +553,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
